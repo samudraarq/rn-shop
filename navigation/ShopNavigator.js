@@ -22,7 +22,7 @@ const ProductsNavigator = () => {
           name="ProductsOverview"
           component={ProductsOverviewScreen}
           options={{
-            headerTitle: "All Products",
+            headerTitle: "All Product",
           }}
         />
       </ProductsNavigatorStack.Navigator>
