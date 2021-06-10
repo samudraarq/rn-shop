@@ -16,6 +16,12 @@ const ProductsNavigator = () => {
           headerStyle: {
             backgroundColor: Platform.OS === "android" ? Colors.primary : "",
           },
+          headerTitleStyle: {
+            fontFamily: "OpenSansBold",
+          },
+          headerBackTitleStyle: {
+            fontFamily: "OpenSans",
+          },
           headerTintColor: Platform.OS === "android" ? white : Colors.primary,
         }}
       >
