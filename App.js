@@ -7,7 +7,7 @@ import { useFonts } from "expo-font";
 
 import productsReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
-import ordersReducer from "./store/reducers/order";
+import ordersReducer from "./store/reducers/orders";
 import ShopNavigator from "./navigation/ShopNavigator";
 
 const rootReducer = combineReducers({
