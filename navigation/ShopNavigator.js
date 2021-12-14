@@ -148,19 +148,6 @@ const AdminNavigator = () => {
         component={EditProductScreen}
         options={({ route }) => ({
           title: route.params?.productId ? "Edit Product" : "Add Product",
-          headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Save"
-                iconName={
-                  Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
-                }
-                onPress={() => {
-                  navigation.navigate("EditProduct");
-                }}
-              />
-            </HeaderButtons>
-          ),
         })}
       />
     </AdminNavigatorStack.Navigator>

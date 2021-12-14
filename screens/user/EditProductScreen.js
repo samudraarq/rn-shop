@@ -1,6 +1,16 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+  Platform,
+} from "react-native";
 import { useSelector } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
+import HeaderButton from "../../components/UI/HeaderButton";
 
 const EditProductScreen = (props) => {
   const prodId = props.route.params?.productId;
@@ -16,6 +26,28 @@ const EditProductScreen = (props) => {
   const [description, setDescription] = useState(
     editedProduct ? editedProduct.description : ""
   );
+
+  const submitHandler = () => {
+    console.log("submitting");
+  };
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Save"
+            iconName={
+              Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
+            }
+            onPress={() => {
+              submitHandler();
+            }}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, [props.navigation]);
 
   return (
     <ScrollView>
