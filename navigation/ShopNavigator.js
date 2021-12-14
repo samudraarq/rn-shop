@@ -146,8 +146,21 @@ const AdminNavigator = () => {
       <AdminNavigatorStack.Screen
         name="EditProduct"
         component={EditProductScreen}
-        options={({ navigation }) => ({
-          title: "Your Product",
+        options={({ route }) => ({
+          title: route.params?.productId ? "Edit Product" : "Add Product",
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+              <Item
+                title="Save"
+                iconName={
+                  Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
+                }
+                onPress={() => {
+                  navigation.navigate("EditProduct");
+                }}
+              />
+            </HeaderButtons>
+          ),
         })}
       />
     </AdminNavigatorStack.Navigator>
