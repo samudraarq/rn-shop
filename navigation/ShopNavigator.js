@@ -11,6 +11,7 @@ import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 import Colors from "../constants/Colors";
 import HeaderButton from "../components/UI/HeaderButton";
 
@@ -127,6 +128,26 @@ const AdminNavigator = () => {
               />
             </HeaderButtons>
           ),
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+              <Item
+                title="Add"
+                iconName={
+                  Platform.OS === "android" ? "md-create" : "ios-create"
+                }
+                onPress={() => {
+                  navigation.navigate("EditProduct");
+                }}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
+      <AdminNavigatorStack.Screen
+        name="EditProduct"
+        component={EditProductScreen}
+        options={({ navigation }) => ({
+          title: "Your Product",
         })}
       />
     </AdminNavigatorStack.Navigator>
