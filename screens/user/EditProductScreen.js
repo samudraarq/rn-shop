@@ -7,16 +7,18 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import HeaderButton from "../../components/UI/HeaderButton";
+import * as ProductsActions from "../../store/actions/products";
 
 const EditProductScreen = (props) => {
   const prodId = props.route.params?.productId;
   const editedProduct = useSelector((state) =>
     state.products.userProducts.find((prod) => prod.id === prodId)
   );
+  const dispatch = useDispatch();
 
   const [title, setTitle] = useState(editedProduct ? editedProduct.title : "");
   const [imageUrl, setImageUrl] = useState(
@@ -28,7 +30,16 @@ const EditProductScreen = (props) => {
   );
 
   const submitHandler = () => {
-    console.log("submitting");
+    if (editedProduct) {
+      dispatch(
+        ProductsActions.updateProduct(prodId, title, description, imageUrl)
+      );
+    } else {
+      dispatch(
+        ProductsActions.createProduct(title, description, imageUrl, +price)
+      );
+    }
+    props.navigation.goBack();
   };
 
   useEffect(() => {
@@ -47,7 +58,7 @@ const EditProductScreen = (props) => {
         </HeaderButtons>
       ),
     });
-  }, [props.navigation]);
+  }, [props.navigation, prodId, title, description, imageUrl]);
 
   return (
     <ScrollView>
