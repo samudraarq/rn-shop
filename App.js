@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 // import { composeWithDevTools } from "redux-devtools-extension";
-import ReduxThunk from "react-redux";
+import ReduxThunk from "redux-thunk";
 
 import productsReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
