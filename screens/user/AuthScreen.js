@@ -40,7 +40,7 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const AuthScreen = () => {
+const AuthScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
@@ -83,8 +83,8 @@ const AuthScreen = () => {
       await dispatch(action);
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(

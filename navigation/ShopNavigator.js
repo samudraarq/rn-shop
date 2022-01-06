@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Platform } from "react-native";
+import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -217,10 +218,10 @@ const AuthNavigator = () => {
 };
 
 const MainNavigator = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const token = useSelector((state) => state.auth.token);
   return (
     <NavigationContainer>
-      {isLogin ? <ShopNavigator /> : <AuthNavigator />}
+      {token ? <ShopNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };
