@@ -26,7 +26,10 @@ const StartupScreen = (props) => {
         dispatch(authActions.doneLoading());
         return;
       }
-      dispatch(authActions.authenticate(userId, token));
+
+      const expirationTime = expirationDate.getTime() - new Date().getTime();
+
+      dispatch(authActions.authenticate(userId, token, expirationTime));
       dispatch(authActions.doneLoading());
     };
     tryLogin();

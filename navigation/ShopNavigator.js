@@ -236,16 +236,13 @@ const AuthNavigatorStack = createStackNavigator();
 const AuthNavigator = () => {
   return (
     <AuthNavigatorStack.Navigator screenOptions={screenOptions}>
-      {/* <AuthNavigatorStack.Screen name="Startup" component={StartupScreen} /> */}
       <AuthNavigatorStack.Screen name="Auth" component={AuthScreen} />
     </AuthNavigatorStack.Navigator>
   );
 };
 
-// const MainNavigatorStack = createStackNavigator();
-
 const MainNavigator = () => {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => !!state.auth.token);
   const isLoading = useSelector((state) => state.auth.isLoading);
 
   if (isLoading) {
@@ -254,23 +251,6 @@ const MainNavigator = () => {
 
   return (
     <NavigationContainer>
-      {/* <MainNavigatorStack.Navigator>
-        <MainNavigatorStack.Screen
-          name="Startup"
-          component={StartupScreen}
-          options={{ headerShown: false }}
-        />
-        <MainNavigatorStack.Screen
-          name="Shop"
-          component={ShopNavigator}
-          options={{ headerShown: false }}
-        />
-        <MainNavigatorStack.Screen
-          name="Auth"
-          component={AuthNavigator}
-          options={{ headerShown: false }}
-        />
-      </MainNavigatorStack.Navigator> */}
       {token ? <ShopNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
