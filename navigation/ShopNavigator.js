@@ -1,9 +1,13 @@
 import React from "react";
-import { Platform } from "react-native";
-import { useSelector } from "react-redux";
+import { Platform, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerItemList,
+  DrawerContentScrollView,
+} from "@react-navigation/drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -18,6 +22,8 @@ import StartupScreen from "../screens/StartupScreen";
 
 import Colors from "../constants/Colors";
 import HeaderButton from "../components/UI/HeaderButton";
+
+import * as authActions from "../store/actions/auth";
 
 const screenOptions = {
   headerStyle: {
@@ -161,10 +167,26 @@ const AdminNavigator = () => {
 const Drawer = createDrawerNavigator();
 
 const ShopNavigator = () => {
+  const dispatch = useDispatch();
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       drawerContentOptions={{ activeTintColor: Colors.primary }}
+      drawerContent={(props) => {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <Button
+              title="Logout"
+              color={Colors.primary}
+              onPress={() => {
+                dispatch(authActions.logout());
+              }}
+            />
+          </DrawerContentScrollView>
+        );
+      }}
     >
       <Drawer.Screen
         name="Home"
@@ -214,16 +236,22 @@ const AuthNavigatorStack = createStackNavigator();
 const AuthNavigator = () => {
   return (
     <AuthNavigatorStack.Navigator screenOptions={screenOptions}>
-      <AuthNavigatorStack.Screen name="Startup" component={StartupScreen} />
+      {/* <AuthNavigatorStack.Screen name="Startup" component={StartupScreen} /> */}
       <AuthNavigatorStack.Screen name="Auth" component={AuthScreen} />
     </AuthNavigatorStack.Navigator>
   );
 };
 
-const MainNavigatorStack = createStackNavigator();
+// const MainNavigatorStack = createStackNavigator();
 
 const MainNavigator = () => {
   const token = useSelector((state) => state.auth.token);
+  const isLoading = useSelector((state) => state.auth.isLoading);
+
+  if (isLoading) {
+    return <StartupScreen />;
+  }
+
   return (
     <NavigationContainer>
       {/* <MainNavigatorStack.Navigator>
