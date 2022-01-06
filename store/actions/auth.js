@@ -6,6 +6,8 @@ export const DONE_LOADING = "DONE_LOADING";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 
+import { API_TOKEN } from "@env";
+
 let timer;
 
 export const doneLoading = () => {
@@ -22,7 +24,7 @@ export const authenticate = (userId, token, expiryTime) => {
 export const signup = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAEs_qlYoWF6dKwNbLxhZAmDZfHxgg59Jw",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`,
       {
         method: "POST",
         headers: {
@@ -64,7 +66,7 @@ export const signup = (email, password) => {
 export const login = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAEs_qlYoWF6dKwNbLxhZAmDZfHxgg59Jw",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_TOKEN}`,
       {
         method: "POST",
         headers: {
